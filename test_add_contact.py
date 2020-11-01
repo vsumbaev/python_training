@@ -2,7 +2,8 @@
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 import unittest
-from group_task3 import Group
+from contact import Contact
+
 
 class PythonTrainingTask3(unittest.TestCase):
     def setUp(self):
@@ -14,9 +15,9 @@ class PythonTrainingTask3(unittest.TestCase):
         self.open_page(wd)
         self.login(wd, user="admin", password="secret")
         self.create_contact(
-            wd, Group(name="valery", last_name="sumbaev",
-                      nick="python_training", company="s-terra", mobile="+79999999999",
-                      mail="universal310@yandex.ru", b_day="8", b_mounth="May", b_year="1998")
+            wd, Contact(name="valery", last_name="sumbaev",
+                        nick="python_training", company="s-terra", mobile="+79999999999",
+                        mail="universal310@yandex.ru", b_day="8", b_mounth="May", b_year="1998")
                      )
         self.logout(wd)
 
@@ -61,6 +62,7 @@ class PythonTrainingTask3(unittest.TestCase):
 
     def open_page(self, wd):
         wd.get("http://localhost/addressbook/edit.php")
+
 
 if __name__ == "__main__":
     unittest.main()

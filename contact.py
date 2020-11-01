@@ -1,4 +1,4 @@
-class Group:
+class Contact:
     """Класс, описывающий атрибуты для метода create_contact"""
     def __init__(self, name, last_name, nick, company, mobile, mail, b_day, b_mounth, b_year):
         self.name = name,
