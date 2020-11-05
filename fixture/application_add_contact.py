@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
+from fixture.contact_session import SessionHelper2
 
 
 class Application:
@@ -7,6 +8,7 @@ class Application:
     def __init__(self):
         self.wd = webdriver.Firefox()
         self.wd.implicitly_wait(30)
+        self.session = SessionHelper2(self)
 
     def create_contact(self, group):
         wd = self.wd
@@ -36,19 +38,6 @@ class Application:
         wd.find_element_by_name("byear").clear()
         wd.find_element_by_name("byear").send_keys(group.b_year)
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
-
-    def logout(self):
-        wd = self.wd
-        wd.find_element_by_link_text("Logout").click()
-
-    def login(self, user, password):
-        wd = self.wd
-        wd.find_element_by_name("user").click()
-        wd.find_element_by_name("user").clear()
-        wd.find_element_by_name("user").send_keys(user)
-        wd.find_element_by_name("pass").clear()
-        wd.find_element_by_name("pass").send_keys(password)
-        wd.find_element_by_id("LoginForm").submit()
 
     def open_page(self):
         wd = self.wd
