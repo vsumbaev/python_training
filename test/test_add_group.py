@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from group_task2 import Group
-from application import Application
+from model.group import Group
+from fixture.add_group_application import Application
 import pytest
 
 
