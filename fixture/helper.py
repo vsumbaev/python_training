@@ -33,6 +33,10 @@ class Helper:
         wd = self.app.wd
         wd.find_element_by_link_text("groups").click()
 
+    def open_contacts_page(self):
+        wd = self.app.wd
+        wd.find_element_by_link_text("home").click()
+
     def create_contacts(self, group):
         wd = self.app.wd
         wd.find_element_by_name("firstname").click()
@@ -71,3 +75,15 @@ class Helper:
         wd.find_element_by_name("delete").click()
         # выход на groups page
         self.return_to_groups_page()
+
+    def delete_contact(self, group):
+        wd = self.app.wd
+        self.open_contacts_page()
+        # select by text
+        wd.find_element_by_name("searchstring").send_keys(group.name)
+        # select first group
+        wd.find_element_by_name("selected[]").click()
+        # submit deletion
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        alert = wd.switch_to.alert
+        alert.accept()
