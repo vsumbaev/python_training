@@ -38,6 +38,11 @@ class ContactHelper:
         wd.find_element_by_name("byear").clear()
         wd.find_element_by_name("byear").send_keys(contact.b_year)
 
+    def count(self):
+        wd = self.app.wd
+        self.open_contacts_page()
+        return len(wd.find_elements_by_name("selected[]"))
+
     def delete_contact(self):
         wd = self.app.wd
         self.open_contacts_page()

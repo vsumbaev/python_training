@@ -3,6 +3,10 @@ from model.contact import Contact
 
 
 def test_modify_contact(app):
+    if app.contact.count() == 0:
+        app.wd.find_element_by_xpath("/html/body/div/div[3]/ul/li[2]/a").click()
+        app.contact.fill_forms_contacts(Contact())
+        app.wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
     app.contact.open_contacts_page()
     app.wd.find_element_by_xpath("/html/body/div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img").click()
     app.contact.fill_forms_contacts(

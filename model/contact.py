@@ -1,6 +1,8 @@
 class Contact:
     """Класс, описывающий атрибуты для метода create_contact"""
-    def __init__(self, name, last_name, nick, company, mobile, mail, b_day, b_mounth, b_year):
+    def __init__(self, name="valery", last_name="sumbaev", nick="python_training",
+                 company="s-terra", mobile="+79999999999", mail="universal310@yandex.ru",
+                 b_day="8", b_mounth="May", b_year="1998"):
         self.name = name,
         self.last_name = last_name,
         self.nick = nick,
