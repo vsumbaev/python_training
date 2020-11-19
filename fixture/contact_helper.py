@@ -1,5 +1,5 @@
 from selenium.webdriver.support.ui import Select
-
+from model.contact import Contact
 
 class ContactHelper:
 
@@ -11,8 +11,14 @@ class ContactHelper:
         if not wd.current_url.endswith("/addressbook/") > 0:
             wd.find_element_by_link_text("home").click()
 
+    def open_new_contact_page(self):
+        wd = self.app.wd
+        if not wd.current_url.endswith("/edit.php/") > 0:
+            wd.find_element_by_link_text("add new").click()
+
     def fill_forms_contacts(self, contact):
         wd = self.app.wd
+        self.open_new_contact_page()
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys(contact.name)
@@ -52,3 +58,16 @@ class ContactHelper:
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         alert = wd.switch_to.alert
         alert.accept()
+
+
+    def get_contacts_list(self):
+        wd = self.app.wd
+        self.open_contacts_page()
+        wd.find_elements_by_name("entry")
+        contacts = []
+        for element in wd.find_elements_by_name("entry"):
+            firstname = wd.find_element_by_css_selector('#maintable > tbody > tr:last-child > td:nth-child(3)').text
+            lastname = wd.find_element_by_css_selector('#maintable > tbody > tr:last-child > td:nth-child(2)').text
+            id = element.find_element_by_name("selected[]").get_attribute("value")
+            contacts.append(Contact(name=firstname, last_name=lastname, id=id))
+        return contacts
