@@ -1,3 +1,5 @@
+from sys import maxsize
+
 class Contact:
     """Класс, описывающий атрибуты для метода create_contact"""
     def __init__(self, name="valery", last_name="sumbaev", nick="python_training",
@@ -13,3 +15,15 @@ class Contact:
         self.b_mounth = b_mounth,
         self.b_year = b_year
         self.id = id
+
+    def __repr__(self):
+        return "%s:%s" % (self.id, self.name)
+
+    def id_or_max(ct):
+        if ct.id:
+            return int(ct.id)
+        else:
+            return maxsize
+
+    def __eq__(self, other):
+        return (self.id is None or other.id is None or self.id == other.id) and self.name == other.name

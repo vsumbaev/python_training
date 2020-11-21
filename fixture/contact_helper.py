@@ -18,7 +18,6 @@ class ContactHelper:
 
     def fill_forms_contacts(self, contact):
         wd = self.app.wd
-        self.open_new_contact_page()
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys(contact.name)
@@ -45,6 +44,7 @@ class ContactHelper:
         wd.find_element_by_name("byear").clear()
         wd.find_element_by_name("byear").send_keys(contact.b_year)
 
+
     def count(self):
         wd = self.app.wd
         self.open_contacts_page()
@@ -52,7 +52,6 @@ class ContactHelper:
 
     def delete_contact(self):
         wd = self.app.wd
-        self.open_contacts_page()
         wd.find_element_by_name("selected[]").click()
         # submit deletion
         wd.find_element_by_xpath("//input[@value='Delete']").click()
@@ -63,11 +62,10 @@ class ContactHelper:
     def get_contacts_list(self):
         wd = self.app.wd
         self.open_contacts_page()
-        wd.find_elements_by_name("entry")
         contacts = []
         for element in wd.find_elements_by_name("entry"):
-            firstname = wd.find_element_by_css_selector('#maintable > tbody > tr:last-child > td:nth-child(3)').text
+            name = wd.find_element_by_css_selector('#maintable > tbody > tr:last-child > td:nth-child(3)').text
             lastname = wd.find_element_by_css_selector('#maintable > tbody > tr:last-child > td:nth-child(2)').text
             id = element.find_element_by_name("selected[]").get_attribute("value")
-            contacts.append(Contact(name=firstname, last_name=lastname, id=id))
+            contacts.append(Contact(name=name, last_name=lastname, id=id))
         return contacts
