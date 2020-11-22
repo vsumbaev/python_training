@@ -27,6 +27,24 @@ class GroupHelper:
         if not (wd.current_url.endswith("/group.php") and len(wd.find_elements_by_name("new")) > 0):
             wd.find_element_by_link_text("groups").click()
 
+    def group_create(self, group):
+        wd = self.app.wd
+        self.open_groups_page()
+        wd.find_element_by_name("new").click()
+        self.fill_forms_groups(group)
+        wd.find_element_by_name("submit").click()
+        self.group_cache = None
+
+    def modify_group(self, group):
+        wd = self.app.wd
+        self.open_groups_page()
+        wd.find_element_by_name("selected[]").click()
+        wd.find_element_by_name("edit").click()
+        self.fill_forms_groups(group)
+        wd.find_element_by_name("update").click()
+        self.open_groups_page()
+        self.group_cache = None
+
     def delete_first_group(self):
         wd = self.app.wd
         self.open_groups_page()
@@ -36,14 +54,18 @@ class GroupHelper:
         wd.find_element_by_name("delete").click()
         # выход на groups page
         self.open_groups_page()
+        self.group_cache = None
+
+    group_cache = None
 
     def get_group_list(self):
-        wd = self.app.wd
-        self.open_groups_page()
-        groups = []
-        for element in wd.find_elements_by_css_selector("span.group"):
-            text = element.text
-            id = element.find_element_by_name("selected[]").get_attribute("value")
-            groups.append(Group(name=text, id=id))
-        return groups
+        if self.group_cache is None:
+            wd = self.app.wd
+            self.open_groups_page()
+            self.group_cache = []
+            for element in wd.find_elements_by_css_selector("span.group"):
+                text = element.text
+                id = element.find_element_by_name("selected[]").get_attribute("value")
+                self.group_cache.append(Group(name=text, id=id))
+        return list(self.group_cache)
 
