@@ -61,7 +61,9 @@ class ContactHelper:
     def modify_contact_by_index(self, index, contact):
         wd = self.app.wd
         self.select_contact_by_index(index)
-        wd.find_element_by_xpath("/html/body/div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img").click()
+        choice_contact = wd.find_elements_by_name("entry")[index]
+        cells = choice_contact.find_elements_by_tag_name("td")[7]
+        cells.find_element_by_tag_name("a").click()
         self.fill_forms_contacts(contact)
         wd.find_element_by_xpath("/html/body/div/div[4]/form[1]/input[1]").click()
         self.contact_cache = None
