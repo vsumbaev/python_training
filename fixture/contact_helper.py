@@ -25,11 +25,14 @@ class ContactHelper:
         wd.find_element_by_name("firstname").send_keys(contact.name)
         wd.find_element_by_name("lastname").clear()
         wd.find_element_by_name("lastname").send_keys(contact.last_name)
-#        wd.find_element_by_name("nickname").clear()
-#        wd.find_element_by_name("nickname").send_keys(contact.nick)
-#        wd.find_element_by_name("company").click()
-#        wd.find_element_by_name("company").clear()
-#        wd.find_element_by_name("company").send_keys(contact.company)
+        wd.find_element_by_name("address").click()
+        wd.find_element_by_name("address").clear()
+        wd.find_element_by_name("address").send_keys(contact.address)
+        wd.find_element_by_name("nickname").clear()
+        wd.find_element_by_name("nickname").send_keys(contact.nick)
+        wd.find_element_by_name("company").click()
+        wd.find_element_by_name("company").clear()
+        wd.find_element_by_name("company").send_keys(contact.company)
         wd.find_element_by_name("mobile").click()
         wd.find_element_by_name("mobile").clear()
         wd.find_element_by_name("mobile").send_keys(contact.mobile)
@@ -39,18 +42,24 @@ class ContactHelper:
         wd.find_element_by_name("work").click()
         wd.find_element_by_name("work").clear()
         wd.find_element_by_name("work").send_keys(contact.workphone)
-#        wd.find_element_by_name("email").click()
-#        wd.find_element_by_name("email").clear()
-#        wd.find_element_by_name("email").send_keys(contact.mail)
-#        wd.find_element_by_name("bday").click()
-#        Select(wd.find_element_by_name("bday")).select_by_visible_text(contact.b_day)
-#        wd.find_element_by_xpath("//option[@value='8']").click()
-#        wd.find_element_by_name("bmonth").click()
-#        Select(wd.find_element_by_name("bmonth")).select_by_visible_text(contact.b_mounth)
-#        wd.find_element_by_xpath("//option[@value='May']").click()
-#        wd.find_element_by_name("byear").click()
-#        wd.find_element_by_name("byear").clear()
-#        wd.find_element_by_name("byear").send_keys(contact.b_year)
+        wd.find_element_by_name("email").click()
+        wd.find_element_by_name("email").clear()
+        wd.find_element_by_name("email").send_keys(contact.email)
+        wd.find_element_by_name("email2").click()
+        wd.find_element_by_name("email2").clear()
+        wd.find_element_by_name("email2").send_keys(contact.email2)
+        wd.find_element_by_name("email3").click()
+        wd.find_element_by_name("email3").clear()
+        wd.find_element_by_name("email3").send_keys(contact.email3)
+        wd.find_element_by_name("bday").click()
+        Select(wd.find_element_by_name("bday")).select_by_visible_text(contact.b_day)
+        wd.find_element_by_xpath("//option[@value='8']").click()
+        wd.find_element_by_name("bmonth").click()
+        Select(wd.find_element_by_name("bmonth")).select_by_visible_text(contact.b_mounth)
+        wd.find_element_by_xpath("//option[@value='May']").click()
+        wd.find_element_by_name("byear").click()
+        wd.find_element_by_name("byear").clear()
+        wd.find_element_by_name("byear").send_keys(contact.b_year)
 
     def create_contact(self, contact):
         wd = self.app.wd
@@ -118,9 +127,12 @@ class ContactHelper:
                 cells = element.find_elements_by_tag_name('td')
                 name = cells[2].text
                 lastname = cells[1].text
+                address = cells[3].text
+                all_emails = cells[4].text
                 id = cells[0].find_element_by_tag_name('input').get_attribute("value")
                 all_phones = cells[5].text
-                self.contact_cache.append(Contact(name=name, last_name=lastname,
+                self.contact_cache.append(Contact(name=name, last_name=lastname, address=address,
+                                                  all_emails_from_home_page=all_emails,
                                                   id=id, all_phones_from_home_page=all_phones))
         return list(self.contact_cache)
 
@@ -147,8 +159,12 @@ class ContactHelper:
         homephone = wd.find_element_by_name("home").get_attribute("value")
         workphone =wd.find_element_by_name("work").get_attribute("value")
         mobile =wd.find_element_by_name("mobile").get_attribute("value")
+        email = wd.find_element_by_name("email").get_attribute("value")
+        email2 = wd.find_element_by_name("email2").get_attribute("value")
+        email3 = wd.find_element_by_name("email3").get_attribute("value")
         return Contact(name=name, last_name=last_name, id=id,
-                       homephone=homephone, workphone=workphone, mobile=mobile)
+                       homephone=homephone, workphone=workphone, mobile=mobile,
+                       email=email, email2=email2, email3=email3)
 
 
     def get_contact_from_view_page(self, index):
