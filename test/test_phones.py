@@ -3,7 +3,7 @@ from model.contact import Contact
 
 def test_phones_on_home_page(app):
     if app.contact.count() == 0:
-        app.contact.open_new_contact_page()
+        app.contact.open_contacts_page()
         app.wd.find_element_by_xpath("/html/body/div/div[3]/ul/li[2]/a").click()
         app.contact.fill_forms_contacts(Contact(name="name", last_name="lastname",
                                         homephone="12345", mobile="12345", workphone="12345",
