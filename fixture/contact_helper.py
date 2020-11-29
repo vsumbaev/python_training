@@ -17,47 +17,6 @@ class ContactHelper:
         if not wd.current_url.endswith("/edit.php/") > 0:
             wd.find_element_by_link_text("add new").click()
 
-#    def open_contacts_to_edit_by_index(self, index):
-#        wd = self.app.wd
-#        self.open_contacts_page()
-#        row = wd.find_elements_by_name("entry")[index]
-#        cell_to_edit = row.find_elements_by_tag_name("td")[7]
-#        cell_to_edit.find_element_by_tag_name("a").click()
-#
-#    def get_contacts_info_from_edit_page(self, index):
-#        wd = self.app.wd
-#        self.open_contacts_to_edit_by_index(index)
-#        firstname = wd.find_element_by_name("firstname").get_attribute("value")
-#        lastname = wd.find_element_by_name("lastname").get_attribute("value")
-#        id = wd.find_element_by_name("id").get_attribute("value")
-#        homephone = wd.find_element_by_name("home").get_attribute("value")
-#        workphone = wd.find_element_by_name("work").get_attribute("value")
-#        mobile = wd.find_element_by_name("mobile").get_attribute("value")
-#        """Строим объект, 1 = название параметра, 2 = название локальной переменной"""
-#        return Contact(name=firstname, last_name=lastname, id=id, homephone=homephone, workphone=workphone, mobile=mobile)
-#
-#    def get_contact_list(self):
-#        if self.contact_cache is None:
-#            wd = self.app.wd
-#            self.open_contacts_page()
-#            self.contact_cache = []
-#            find_contacts = wd.find_elements_by_name("entry")
-#            for row in find_contacts:
-#                cells = row.find_elements_by_tag_name("td")
-#                firstname = cells[2].text
-#                lastname = cells[1].text
-#                """У чекбоксов находим value"""
-#                # id = row.find_element_by_name("selected[]").get_attribute("value")
-#                id = cells[0].find_element_by_tag_name("input").get_attribute("value")
-#
-#                """Делим все телефоны на строки в список"""
-#                # all_phones = cells[5].text.splitlines()
-#                # print("contact's phones from main page = " + str(all_phones))  # = ['515232', '89539235812', '367412', '515232']
-#                # self.contact_cache.append(Contact(id=id, firstname=firstname, lastname=lastname, homephone=all_phones[0],
-#                #                                   mobilephone=all_phones[1], workphone=all_phones[2], secondaryphone=all_phones[3]))
-#                all_phones = cells[5].text
-#                self.contact_cache.append(Contact(id=id, name=firstname, last_name=lastname, all_phones_from_home_page=all_phones))
-#        return list(self.contact_cache)
 
     def fill_forms_contacts(self, contact):
         wd = self.app.wd
