@@ -1,0 +1,5 @@
+{
+  "baseUrl": "http://localhost/addressbook/edit.php",
+  "username": "admin",
+  "password": "secret"
+}
