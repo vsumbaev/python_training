@@ -1,19 +1,8 @@
 # -*- coding: utf-8 -*-
 from model.contact import Contact
 import pytest
-import random
-import string
+from data.contacts import constant as testdata
 
-def random_string(prefix, maxlen):
-    symbols = string.ascii_letters + string.digits + string.punctuation + " " * 10
-    return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
-
-
-testdata = [Contact(name="", last_name="", address="")] + [
-    Contact(name=random_string("name", 10), last_name=random_string("lastname", 20),
-            address=random_string("tankovaya", 20))
-    for i in range(5)
-]
 
 @pytest.mark.parametrize("contact", testdata, ids=[repr(x) for x in testdata])
 def test_python_training_task3(app, contact):
