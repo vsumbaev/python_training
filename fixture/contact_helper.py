@@ -201,3 +201,19 @@ class ContactHelper:
         wd = self.app.wd
         self.open_contacts_page()
         wd.find_element_by_xpath("//*[@id='maintable']/tbody").find_element_by_xpath("//*[@href='edit.php?id=%s']" % id).click()
+
+    def assert_group_url(self, id):
+        wd = self.app.wd
+        get_group_url = wd.current_url
+        assert get_group_url == "http://localhost/addressbook/?group=%s" % id
+
+    def add_to_group(self, contact_id, group_id):
+        wd = self.app.wd
+        self.open_contacts_page()
+        self.select_contact_by_id(contact_id)
+        wd.find_element_by_xpath("/html/body/div/div[4]/form[2]/div[4]/select/option[@value=%s]" % group_id).click()
+        wd.find_element_by_name("add").click()
+#        self.assert_group_url(group_id)
+#        wd.find_element_by_css_selector('input[value="%s"]' % contact_id)
+        self.contact_cache = None
+
