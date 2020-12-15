@@ -213,7 +213,20 @@ class ContactHelper:
         self.select_contact_by_id(contact_id)
         wd.find_element_by_xpath("/html/body/div/div[4]/form[2]/div[4]/select/option[@value=%s]" % group_id).click()
         wd.find_element_by_name("add").click()
-#        self.assert_group_url(group_id)
-#        wd.find_element_by_css_selector('input[value="%s"]' % contact_id)
         self.contact_cache = None
 
+    def del_from_group(self, contact_id, group_id):
+        wd = self.app.wd
+        self.open_contacts_page()
+        self.select_contact_by_id(contact_id)
+        wd.find_element_by_xpath("/html/body/div/div[4]/form[2]/div[4]/select/option[@value=%s]" % group_id).click()
+        wd.find_element_by_name("add").click()
+        self.contact_cache = None
+
+    def delete_contact_from_group(self, group_id, contact_id):
+        wd = self.app.wd
+        self.open_contacts_page()
+        wd.find_element_by_name("group").click()
+        wd.find_element_by_xpath("//option[@value=%s]" % group_id).click()
+        self.select_contact_by_id(contact_id)
+        wd.find_element_by_name("remove").click()
