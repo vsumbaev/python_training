@@ -27,6 +27,7 @@ class GroupHelper:
         if not (wd.current_url.endswith("/group.php") and len(wd.find_elements_by_name("new")) > 0):
             wd.find_element_by_link_text("groups").click()
 
+
     def group_create(self, group):
         wd = self.app.wd
         self.open_groups_page()
