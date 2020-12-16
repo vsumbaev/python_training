@@ -14,6 +14,12 @@ def test_contact_check_main_page_and_db(app, db):
     contacts_from_db = db.get_contacts_list()
     print('db', sorted(contacts_from_db, key=Contact.max_or_id))
     assert sorted(contacts_from_home_page, key=Contact.max_or_id) == sorted(contacts_from_db, key=Contact.max_or_id)
+    def clean(contact):
+        return Contact(id=contact.id, name=contact.name.strip(), last_name=contact.last_name.strip(),
+                          all_phones_from_home_page=merge_phones_like_on_home_page(contact),
+                          all_emails_from_home_page=merge_emails_like_on_home_page(contact))
+    db_list = map(clean, db.get_contacts_list())
+    assert sorted(contacts_from_home_page, key=Contact.max_or_id) == sorted(db_list, key=Contact.max_or_id)
 
 
 def merge_phones_like_on_home_page(contact):
