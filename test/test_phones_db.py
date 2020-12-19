@@ -20,6 +20,15 @@ def test_contact_check_main_page_and_db(app, db):
                           all_emails_from_home_page=merge_emails_like_on_home_page(contact))
     db_list = map(clean, db.get_contacts_list())
     assert sorted(contacts_from_home_page, key=Contact.max_or_id) == sorted(db_list, key=Contact.max_or_id)
+    contacts_from_home_page = sorted(app.contact.get_contacts_list(), key=Contact.max_or_id)
+    contacts_from_db = sorted(db.get_contacts_list(), key=Contact.max_or_id)
+    for i in range(len(contacts_from_home_page)):
+        assert clear(contacts_from_home_page[i].name) == clear(contacts_from_db[i].name)
+        assert clear(contacts_from_home_page[i].last_name) == clear(contacts_from_db[i].last_name)
+        assert clear(contacts_from_home_page[i].all_phones_from_home_page) == clear(merge_phones_like_on_home_page
+                                                                                    (contacts_from_db[i]))
+        assert clear(contacts_from_home_page[i].all_emails_from_home_page) == clear(merge_emails_like_on_home_page
+                                                                                    (contacts_from_db[i]))
 
 
 def merge_phones_like_on_home_page(contact):
