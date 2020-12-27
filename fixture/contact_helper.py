@@ -230,3 +230,4 @@ class ContactHelper:
         wd.find_element_by_xpath("//option[@value=%s]" % group_id).click()
         self.select_contact_by_id(contact_id)
         wd.find_element_by_name("remove").click()
+
